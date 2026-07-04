@@ -5,7 +5,7 @@ Utility functions for mrVXbBoT
 import io
 import logging
 import requests
-from PIL import Image, ImageOps
+from PIL import Image
 from urllib.parse import urlparse
 import pyshorteners
 from config import Config
@@ -35,7 +35,10 @@ class ImageUtils:
                 background = Image.new('RGB', img.size, (255, 255, 255))
                 if img.mode == 'P':
                     img = img.convert('RGBA')
-                background.paste(img, mask=img.split()[-1] if img.mode == 'RGBA' else None)
+                if img.mode == 'RGBA':
+                    background.paste(img, mask=img.split()[-1])
+                else:
+                    background.paste(img)
                 img = background
             
             output = io.BytesIO()
@@ -208,8 +211,11 @@ def is_valid_url(url: str) -> bool:
 
 def format_file_size(size_bytes: float) -> str:
     """Format file size in human-readable format"""
-    for unit in ['B', 'KB', 'MB', 'GB']:
-        if size_bytes < 1024.0:
-            return f"{size_bytes:.1f} {unit}"
-        size_bytes /= 1024.0
-    return f"{size_bytes:.1f} TB"
+    if size_bytes < 1024:
+        return f"{size_bytes:.1f} B"
+    elif size_bytes < 1024 * 1024:
+        return f"{size_bytes / 1024:.1f} KB"
+    elif size_bytes < 1024 * 1024 * 1024:
+        return f"{size_bytes / (1024 * 1024):.1f} MB"
+    else:
+        return f"{size_bytes / (1024 * 1024 * 1024):.1f} GB"
