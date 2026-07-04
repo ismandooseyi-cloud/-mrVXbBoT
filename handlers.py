@@ -4,7 +4,7 @@ Command handlers for mrVXbBoT
 
 import logging
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, InputFile
-from telegram.ext import ContextTypes, CallbackContext
+from telegram.ext import ContextTypes
 from utils import ImageUtils, URLUtils, ImageGenerator, is_valid_url, format_file_size
 from config import Config
 import io
@@ -300,7 +300,7 @@ async def compress_image_handler(update: Update, context: ContextTypes.DEFAULT_T
         compressed_size = compressed.getbuffer().nbytes
         
         savings = original_size - compressed_size
-        savings_percent = (savings / original_size) * 100
+        savings_percent = (savings / original_size) * 100 if original_size > 0 else 0
         
         await update.message.reply_photo(
             photo=InputFile(compressed, filename='compressed.jpg'),
