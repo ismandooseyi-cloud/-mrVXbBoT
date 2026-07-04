@@ -20,10 +20,6 @@ A powerful, feature-rich Telegram bot that provides essential utility functions 
 
 ## 🚀 Quick Deploy to Railway
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/YOUR_TEMPLATE)
-
-### Manual Deployment Steps:
-
 1. **Fork this repository** to your GitHub account
 
 2. **Create bot on Telegram**:
@@ -54,14 +50,22 @@ A powerful, feature-rich Telegram bot that provides essential utility functions 
 | `/qr [text]` | Generate QR code | `/qr Hello World` |
 | `/generate [prompt]` | Generate AI image | `/generate a cat in space` |
 
-### Quick Actions:
-- **Send an image** → Get conversion/compression options
-- **Send a URL** → Automatically shorten it
-- **Send any text** → Get guidance on available commands
-
 ## 🛠️ Local Development
 
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/mrVXbBoT.git
-cd mrVXbBoT
+1. Clone the repository
+2. Create virtual environment: `python -m venv venv`
+3. Activate: `source venv/bin/activate` (Windows: `venv\Scripts\activate`)
+4. Install dependencies: `pip install -r requirements.txt`
+5. Set environment variables: `cp .env.example .env` and add your BOT_TOKEN
+6. Run: `python bot.py`
+
+## 📝 Environment Variables
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `BOT_TOKEN` | Your bot token from @BotFather | ✅ Yes |
+| `LOG_LEVEL` | Logging level (INFO, DEBUG, ERROR) | ❌ No |
+
+---
+
+Made with ❤️ for the Telegram community
